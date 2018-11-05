@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_converter_application" default="compile.module.converter_application">
+  <dirname property="module.converter_application.basedir" file="${ant.file.module_converter_application}"/>
+  
+  <property name="module.jdk.home.converter_application" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.converter_application" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.converter_application" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.converter_application" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="converter_application.output.dir" value="${module.converter_application.basedir}/build/classes/production/Converter_Application"/>
+  <property name="converter_application.testoutput.dir" value="${module.converter_application.basedir}/build/classes/test/Converter_Application"/>
+  
+  <path id="converter_application.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="converter_application.module.production.classpath">
+    <path refid="${module.jdk.classpath.converter_application}"/>
+  </path>
+  
+  <path id="converter_application.runtime.production.module.classpath">
+    <pathelement location="${converter_application.output.dir}"/>
+  </path>
+  
+  <path id="converter_application.module.classpath">
+    <path refid="${module.jdk.classpath.converter_application}"/>
+    <pathelement location="${converter_application.output.dir}"/>
+  </path>
+  
+  <path id="converter_application.runtime.module.classpath">
+    <pathelement location="${converter_application.testoutput.dir}"/>
+    <pathelement location="${converter_application.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.converter_application">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.converter_application">
+    <patternset refid="excluded.from.module.converter_application"/>
+  </patternset>
+  
+  
+  <target name="compile.module.converter_application" depends="compile.module.converter_application.production,compile.module.converter_application.tests" description="Compile module Converter_Application"/>
+  
+  <target name="compile.module.converter_application.production" depends="register.custom.compilers" description="Compile module Converter_Application; production classes"/>
+  
+  <target name="compile.module.converter_application.tests" depends="register.custom.compilers,compile.module.converter_application.production" description="compile module Converter_Application; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.converter_application" description="cleanup module">
+    <delete dir="${converter_application.output.dir}"/>
+    <delete dir="${converter_application.testoutput.dir}"/>
+  </target>
+</project>
